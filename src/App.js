@@ -36,7 +36,7 @@ class App extends React.Component {
               }
             },
             () => {
-              console.log(this.state); // ovo znaci kada zavrsi setState
+              //console.log(this.state); // ovo znaci kada zavrsi setState
             }
           );
         });

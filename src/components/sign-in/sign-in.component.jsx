@@ -4,7 +4,7 @@ import "./sign-in.component.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -14,13 +14,20 @@ class SignIn extends React.Component {
       password: ""
     };
   }
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
-    this.SetState({ email: "", password: "" });
+    const { email, password } = this.state;
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: "", password: "" });
+    } catch (error) {
+      console.log("error", error);
+    }
+    this.setState({ email: "", password: "" });
   };
-  hadndleChange = event => {
+  handleChange = event => {
     const { value, name } = event.target;
-    this.SetState({ [name]: value }); //dinamicko postavljanje vrednosti
+    this.setState({ [name]: value }); //dinamicko postavljanje vrednosti
   };
 
   render() {
@@ -41,9 +48,9 @@ class SignIn extends React.Component {
             name="password"
             type="password"
             value={this.state.password}
-            required
             handleChange={this.handleChange}
             label="password"
+            required
           />
           <div className="buttons">
             <CustomButton type="submit">Sign in</CustomButton>
