@@ -14,34 +14,28 @@ import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 // header da bude outside Switcha
 class App extends React.Component {
-  unsubscrubiFromAuth = null;
+  unsubscrubeFromAuth = null;
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
-    this.unsubscrubiFromAuth = auth.onAuthStateChanged(async userAuth => {
+    this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
       //this.setState({ currentUser: user });
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot(
-          snapShot => {
-            setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data()
-            });
-          },
-          () => {
-            //console.log(this.state); // ovo znaci kada zavrsi setState
-          }
-        );
-      } else {
-        // else ako je null
-        setCurrentUser(userAuth); //ovo je null
+        userRef.onSnapshot(snapShot => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data()
+          });
+        });
       }
+
+      setCurrentUser(userAuth);
     });
   }
 
   componentWillUnmount() {
-    this.unsubscrubiFromAuth();
+    this.unsubscrubeFromAuth();
   }
 
   render() {
