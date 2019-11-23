@@ -13,6 +13,10 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 // header da bude outside Switcha
+
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "./redux/user/user.selector";
+
 class App extends React.Component {
   unsubscrubeFromAuth = null;
 
@@ -62,8 +66,11 @@ class App extends React.Component {
   }
 }
 
-const mapSateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+//const mapSateToProps = ({ user }) => ({
+//  currentUser: user.currentUser
+//});
+const mapSateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
