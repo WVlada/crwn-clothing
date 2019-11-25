@@ -1,10 +1,11 @@
 import React from "react";
 import StripeCheckOut from "react-stripe-checkout";
-import STRIPE_PUBLISHABLE_KEY from "../../.env.local";
+//import STRIPE_PUBLISHABLE_KEY from "../../.env.local";
 
 const StripeCheckoutButton = ({ price }) => {
   const priceForStripe = price * 100;
-  const publishableKey = STRIPE_PUBLISHABLE_KEY;
+  //const publishableKey = STRIPE_PUBLISHABLE_KEY;
+  const publishableKey = "neki key";
   const onToken = token => {
     alert("Payment successfull");
     console.log(token);
