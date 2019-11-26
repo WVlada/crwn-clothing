@@ -9,13 +9,14 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
-  collections => Object.keys(collections).map(key => collections[key]) //uzima keyove objekta i vraca ih u arrayu
+  collections =>
+    collections ? Object.keys(collections).map(key => collections[key]) : [] //uzima keyove objekta i vraca ih u arrayu
 );
 
 export const selectCollection = collectionUrlParam =>
   createSelector(
     [selectCollections],
-    collections => collections[collectionUrlParam]
+    collections => (collections ? collections[collectionUrlParam] : null)
     //collections.find(
     //  collection => collection.id === COLLECTION_ID_MAP[collectionUrlParam]
     //)
