@@ -25,7 +25,10 @@ class ShopPage extends React.Component {
     this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
       updateCollections(collectionsMap);
-      this.setState({ loading: false });
+      setTimeout(() => {
+        //radi fore
+        this.setState({ loading: false });
+      }, 1000);
     }); //kad god se collection.ref updtuje, firebase nam posalje snapshot
   }
   render() {
