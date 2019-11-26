@@ -10,8 +10,8 @@ import ShopPage from "./pages/shop/shop.component.jsx";
 
 import {
   auth,
-  createUserProfileDocument,
-  addCollectionAndCocuments
+  createUserProfileDocument //,
+  //addCollectionAndCocuments
 } from "./firebase/firebase.utils";
 
 import Header from "./components/header/header.component";
@@ -22,13 +22,14 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 
 import CheckOutPage from "./pages/checkout/checkout.component";
-import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
+//import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 
 class App extends React.Component {
   unsubscrubeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
+    //const { setCurrentUser, collectionsArray} = this.props;
+    const { setCurrentUser } = this.props;
     this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
       //this.setState({ currentUser: user });
       if (userAuth) {
@@ -43,11 +44,11 @@ class App extends React.Component {
 
       setCurrentUser(userAuth);
       // ne ubacujemo ceo collectionsArray, jer nam ne trebaju: id, url... nego samo title i items
-      addCollectionAndCocuments(
-        "collections",
-        collectionsArray.map(({ title, items }) => ({ title, items }))
-        // vraca novi objekat u kojem je: title = title, items = items
-      );
+      //addCollectionAndCocuments(
+      //  "collections",
+      //  collectionsArray.map(({ title, items }) => ({ title, items }))
+      // vraca novi objekat u kojem je: title = title, items = items
+      //);
     });
   }
 
@@ -84,8 +85,8 @@ class App extends React.Component {
 //  currentUser: user.currentUser
 //});
 const mapSateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview
+  currentUser: selectCurrentUser //,
+  //collectionsArray: selectCollectionsForPreview
 });
 
 const mapDispatchToProps = dispatch => ({
