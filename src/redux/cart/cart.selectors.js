@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import CartItem from "../../components/cart-item/cart-item.componenet";
+//import CartItem from "../../components/cart-item/cart-item.componenet";
 
 const selectCart = state => state.cart;
 

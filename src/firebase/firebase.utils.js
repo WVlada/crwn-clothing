@@ -30,6 +30,22 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+export const addCollectionAndCocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  // zato sto iamo mnogo objekata radimo preko batch-a
+  const batch = firestore.batch();
+  //foreach radi isto i map, samo sto ne vraca novi array, sto nam ovde i ne treba
+  // treba nam samo da pozovemo funkciju na svaki obj
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc(); //get me a new doc, and generate random ID
+    batch.set(newDocRef, obj);
+  });
+  return await batch.commit();
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();

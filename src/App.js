@@ -8,7 +8,11 @@ import HomePage from "./pages/homepage/homepage.component";
 
 import ShopPage from "./pages/shop/shop.component.jsx";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionAndCocuments
+} from "./firebase/firebase.utils";
 
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
@@ -18,12 +22,13 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 
 import CheckOutPage from "./pages/checkout/checkout.component";
+import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 
 class App extends React.Component {
   unsubscrubeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
     this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
       //this.setState({ currentUser: user });
       if (userAuth) {
@@ -37,6 +42,12 @@ class App extends React.Component {
       }
 
       setCurrentUser(userAuth);
+      // ne ubacujemo ceo collectionsArray, jer nam ne trebaju: id, url... nego samo title i items
+      addCollectionAndCocuments(
+        "collections",
+        collectionsArray.map(({ title, items }) => ({ title, items }))
+        // vraca novi objekat u kojem je: title = title, items = items
+      );
     });
   }
 
@@ -73,7 +84,8 @@ class App extends React.Component {
 //  currentUser: user.currentUser
 //});
 const mapSateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview
 });
 
 const mapDispatchToProps = dispatch => ({
