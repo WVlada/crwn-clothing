@@ -30,26 +30,26 @@ class App extends React.Component {
   componentDidMount() {
     //const { setCurrentUser, collectionsArray} = this.props;
     const { setCurrentUser } = this.props;
-    this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      //this.setState({ currentUser: user });
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      }
-
-      setCurrentUser(userAuth);
-      // ne ubacujemo ceo collectionsArray, jer nam ne trebaju: id, url... nego samo title i items
-      //addCollectionAndCocuments(
-      //  "collections",
-      //  collectionsArray.map(({ title, items }) => ({ title, items }))
-      // vraca novi objekat u kojem je: title = title, items = items
-      //);
-    });
+    //this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //  //this.setState({ currentUser: user });
+    //  if (userAuth) {
+    //    const userRef = await createUserProfileDocument(userAuth);
+    //    userRef.onSnapshot(snapShot => {
+    //      setCurrentUser({
+    //        id: snapShot.id,
+    //        ...snapShot.data()
+    //      });
+    //    });
+    //  }
+    //
+    //  setCurrentUser(userAuth);
+    // ne ubacujemo ceo collectionsArray, jer nam ne trebaju: id, url... nego samo title i items
+    //addCollectionAndCocuments(
+    //  "collections",
+    //  collectionsArray.map(({ title, items }) => ({ title, items }))
+    // vraca novi objekat u kojem je: title = title, items = items
+    //);
+    //});
   }
 
   componentWillUnmount() {
