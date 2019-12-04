@@ -1,18 +1,12 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { setCurrentUser } from "./redux/user/user.actions";
+
 import "./App.css";
 
 import HomePage from "./pages/homepage/homepage.component";
 
 import ShopPage from "./pages/shop/shop.component.jsx";
-
-import {
-  auth,
-  createUserProfileDocument //,
-  //addCollectionAndCocuments
-} from "./firebase/firebase.utils";
 
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
@@ -29,7 +23,6 @@ class App extends React.Component {
 
   componentDidMount() {
     //const { setCurrentUser, collectionsArray} = this.props;
-    const { setCurrentUser } = this.props;
     //this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
     //  //this.setState({ currentUser: user });
     //  if (userAuth) {
@@ -89,8 +82,4 @@ const mapSateToProps = createStructuredSelector({
   //collectionsArray: selectCollectionsForPreview
 });
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-});
-
-export default connect(mapSateToProps, mapDispatchToProps)(App);
+export default connect(mapSateToProps)(App);
