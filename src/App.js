@@ -14,6 +14,7 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
+import { checkUsersSession } from "./redux/user/user.actions";
 
 import CheckOutPage from "./pages/checkout/checkout.component";
 //import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
@@ -22,27 +23,8 @@ class App extends React.Component {
   unsubscrubeFromAuth = null;
 
   componentDidMount() {
-    //const { setCurrentUser, collectionsArray} = this.props;
-    //this.unsubscrubeFromAuth = auth.onAuthStateChanged(async userAuth => {
-    //  //this.setState({ currentUser: user });
-    //  if (userAuth) {
-    //    const userRef = await createUserProfileDocument(userAuth);
-    //    userRef.onSnapshot(snapShot => {
-    //      setCurrentUser({
-    //        id: snapShot.id,
-    //        ...snapShot.data()
-    //      });
-    //    });
-    //  }
-    //
-    //  setCurrentUser(userAuth);
-    // ne ubacujemo ceo collectionsArray, jer nam ne trebaju: id, url... nego samo title i items
-    //addCollectionAndCocuments(
-    //  "collections",
-    //  collectionsArray.map(({ title, items }) => ({ title, items }))
-    // vraca novi objekat u kojem je: title = title, items = items
-    //);
-    //});
+    const { checkUsersSession } = this.props;
+    checkUsersSession(); // so we fire it when our app initializes
   }
 
   componentWillUnmount() {
@@ -82,4 +64,9 @@ const mapSateToProps = createStructuredSelector({
   //collectionsArray: selectCollectionsForPreview
 });
 
-export default connect(mapSateToProps)(App);
+//wich gets dispatch, and its a methos that dispatches our action
+const mapDispatchToProps = dispatch => ({
+  checkUsersSession: () => dispatch(checkUsersSession())
+});
+
+export default connect(mapSateToProps, mapDispatchToProps)(App);
