@@ -1,20 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./collection.styles.scss";
 import { connect } from "react-redux";
 import { selectCollection } from "../../redux/shop/shop.selectors";
 import CollectionItem from "../../components/collection-item/collection-item.component";
-import { firestore } from "../../firebase/firebase.utils";
+
 const CollectionPage = ({ collection }) => {
-  useEffect(() => {
-    console.log("I am subscribing");
-    const unSubscribeFromCollections = firestore
-      .collection("collections")
-      .onSnapshot(async snapshot => console.log(snapshot));
-    return () => {
-      console.log("I am UNsubscribing");
-      unSubscribeFromCollections();
-    }; //ovo je cleanUp function - componenet unMount
-  }, []); //empty array means that it will only fire on mounting
   const { title, items } = collection;
   return (
     <div className="collection-page">
