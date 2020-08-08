@@ -1,4 +1,4 @@
-# Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL)
+# UDEMY - Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL)
 
 ### The topics covered will be:
 
